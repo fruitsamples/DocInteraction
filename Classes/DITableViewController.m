@@ -1,7 +1,7 @@
 /* 
      File: DITableViewController.m
  Abstract: The table view that display docs of different types.
-  Version: 1.2
+  Version: 1.3
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -41,7 +41,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2011 Apple Inc. All Rights Reserved.
  
  */
 
@@ -59,7 +59,7 @@ static NSString* documents[] =
     };
 #define NUM_DOCS 4
 
-#define kRowHeight 58.0
+#define kRowHeight 58.0f
 
 
 @implementation DITableViewController
@@ -201,6 +201,7 @@ static NSString* documents[] =
     if (!cell)
     {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     NSURL *fileURL;
@@ -291,7 +292,7 @@ static NSString* documents[] =
     
     // start previewing the document at the current section index
     previewController.currentPreviewItemIndex = indexPath.row;
-    [self presentModalViewController:previewController animated:YES];
+    [[self navigationController] pushViewController:previewController animated:YES];
     [previewController release];
 }
 
@@ -328,18 +329,18 @@ static NSString* documents[] =
 }
 
 // returns the item that the preview controller should preview
-- (id)previewController:(QLPreviewController *)previewController previewItemAtIndex:(NSInteger)index
+- (id)previewController:(QLPreviewController *)previewController previewItemAtIndex:(NSInteger)idx
 {
     NSURL *fileURL = nil;
     
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
     if (selectedIndexPath.section == 0)
     {
-        fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:documents[index] ofType:nil]];
+        fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:documents[idx] ofType:nil]];
     }
     else
     {
-        fileURL = [self.documentURLs objectAtIndex:index];
+        fileURL = [self.documentURLs objectAtIndex:idx];
     }
     
     return fileURL;
