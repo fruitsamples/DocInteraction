@@ -27,6 +27,9 @@ iOS 4.0 or later
 ================================================================================
 CHANGES FROM PREVIOUS VERSIONS:
 
+Version 1.4
+- Upgraded to support iOS 5.0 SDK, added QLPreviewControllerDelegate to DITableViewController.h.
+
 Version 1.3
 - Upgraded to support iOS 4.2 SDK, QLPreviewController now navigates to a separate screen.
 
@@ -40,4 +43,4 @@ Version 1.0
 - First Version, released for WWDC 2010
 
 ================================================================================
-Copyright (C) 2010-2011 Apple Inc. All rights reserved.
+Copyright (C) 2010-2012 Apple Inc. All rights reserved.
